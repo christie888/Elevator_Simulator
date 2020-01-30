@@ -8,5 +8,5 @@ build:
 
 
 
-client-terminal :post request 
+client-terminal :post request example
 curl -X POST -H "Content-Type: application/json" -d '{"departure":-2, "destination":3}' localhost:5000/destination
