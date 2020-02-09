@@ -1,19 +1,16 @@
 #!/usr/bin/env python
-from flask import Flask,request, jsonify
+from flask import Flask, request, jsonify
 import random
 import time
-
 
 app = Flask(__name__)
 
 current_position=random.randint(-2, 3)
-#position=[]
 
 @app.route('/')
-def hello_world():
-    position= random.randint(-2, 3)
-    return "current place:"+str(position)
-
+def current_place():
+    position = random.randint(-2, 3)
+    return  jsonify({"current place": str(position)}), 200
 
 def MoveOD(current_position, destination):
     if current_position==destination:
@@ -38,10 +35,8 @@ def MoveOD(current_position, destination):
 
     return current_position
 
-
-
 @app.route('/destination', methods=['POST'])
-def create_article():
+def move():
     global current_position
     print("current place:" + str(current_position))
 
@@ -60,18 +55,7 @@ def create_article():
     if current_position==des:
         print("arrived at destination floor: ",des)
 
-    return request.get_data()
-
-    #return str(current_position)
-
-    #if not request.json or not 'title' in request.json:
-
-    #articles.append(article)
-    #return jsonify({'article': article}), 201
-
-#@app.route('/start')
-#def start():
-
+    return request.get_data(), 200
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',debug=True)
