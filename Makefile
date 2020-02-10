@@ -1,12 +1,12 @@
-elevator-terminal: initiate a elevator server
-
 run: build
 	docker run -it --rm -p 5000:5000 elevator
 build:
 	docker build -t elevator .
-.PHONY: run build
+req:
+	curl -X POST -H "Content-Type: application/json" \
+		-d '{"departure":-2, "destination":3}' \
+		localhost:5000/destination
+current:
+	curl localhost:5000
 
-
-
-client-terminal :post request example
-curl -X POST -H "Content-Type: application/json" -d '{"departure":-2, "destination":3}' localhost:5000/destination
+.PHONY: run build req
